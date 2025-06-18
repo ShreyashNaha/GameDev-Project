@@ -41,9 +41,20 @@ public class ObstacleSpawner : MonoBehaviour
         rightWall.positiveMaterial = this.positiveMaterial;
         rightWall.negativeMaterial = this.negativeMaterial;
 
-        // Tell each wall to set itself up, each with its own random chance of being positive
-        leftWall.SetupWall(Random.value > 0.5f); 
-        rightWall.SetupWall(Random.value > 0.5f);
+        // First, randomly decide if the LEFT wall will be the positive one
+        bool makeLeftWallPositive = (Random.value > 0.5f);
+
+        // Now, set up the walls based on this decision
+        if (makeLeftWallPositive)
+        {
+            leftWall.SetupWall(true);  // Left wall is positive (blue)
+            rightWall.SetupWall(false); // Right wall is negative (red)
+        }
+        else
+        {
+            leftWall.SetupWall(false); // Left wall is negative (red)
+            rightWall.SetupWall(true);  // Right wall is positive (blue)
+        }
 
     }
 }
